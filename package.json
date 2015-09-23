@@ -1,0 +1,23 @@
+{
+  "name": "liac-soccer",
+  "description": "",
+  "author": "Renato de Pontes Pereira <renato.ppontes@gmail.com>",
+  "devDependencies": {
+    "gulp"            : "*",
+    "gulp-concat"     : "*",
+    "gulp-uglify"     : "*",
+    "gulp-minify-css" : "*",
+    "gulp-connect"    : "*",
+    "socket.io"       : "*"
+  },
+
+  "main": "build/index.html",
+  "window": {
+    "toolbar"    : true,
+    "frame"      : true,
+    "width"      : 850,
+    "height"     : 650,
+    "min_width"  : 850,
+    "min_height" : 650
+  }
+}

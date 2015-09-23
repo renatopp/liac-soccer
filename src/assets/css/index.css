@@ -1,0 +1,118 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* BOOSTRAP OVERRIDEN */
+.navbar-nav > li > a, .navbar-brand {
+  padding-top: 4px !important; 
+  padding-bottom: 0 !important;
+  height: 28px;
+}
+.navbar {
+  min-height: 28px !important;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.navbar-brand, .navbar-brand:hover {
+  background-color: #efefef !important;
+  color: #555 !important;
+  cursor: default;
+}
+
+
+/* LIAC-SOCCER */
+.sc-info {
+  position    : absolute;
+  top         : 28px;
+  bottom      : 0px;
+  right       : 0px;
+  width       : 300px;
+  z-index     : 1;
+  background  : #F8F8F8;
+  border-left : 1px solid #D6D6D6;
+  box-shadow  : 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  cursor: default;
+}
+.sc-canvas {
+  width         : 100%;
+  height        : 100%;
+  padding       : 10px;
+  padding-top   : 38px;
+  padding-right : 310px;
+}
+.sc-canvas canvas {
+  background-color : black;
+  width            : 100%;
+}
+
+
+.sc-info-commands {
+  background    : #E7E7E7;
+  border-bottom : #D6D6D6;
+  height        : 75px;
+  text-align    : center;
+  padding-top   : 20px;
+  margin-bottom : 30px;
+}
+
+.sc-info-panel {
+  background    : #FFF;
+  border        : 1px solid #E7E7E7;
+  border-radius : 5px;
+  margin        : 10px;
+  height        : 75px;
+}
+.sc-info-panel-score {
+  float        : left;
+  border-right : 1px solid #E7E7E7;
+  height       : 100%;
+  width        : 75px;
+  font-size    : 3em;
+  text-align   : center;
+  line-height  : 1.8em;
+}
+.sc-info-panel-body {
+  padding-left : 85px;
+  padding-top  : 9px;
+}
+.sc-info-panel-body h4 {
+  margin-bottom: 0px;
+}
+
+.sc-info-log {
+  background    : #FFF;
+  border        : 1px solid #E7E7E7;
+  border-radius : 5px;
+  margin        : 30px 10px;
+  height        : 200px;
+  overflow      : hidden;
+}
+.sc-info-log textarea {
+  width   : 100%;
+  height  : 170px;
+  resize  : none;
+  border  : 0px;
+  outline : none; 
+  padding : 10px;
+}
+.sc-info-log-header {
+  background     : #E7E7E7;
+  border-bottom  : 1px solid #E7E7E7;
+  padding        : 5px 10px;
+  height         : 30px;
+  font-weight    : bold;
+  text-transform : uppercase;
+}
+
+/* P2 RENDERER */
+.p2-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 40% !important;
+  height: 40% !important;
+  box-shadow  : 0px 0px 10px 0px rgba(255, 0, 0, 0.5);
+}

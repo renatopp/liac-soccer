@@ -1,0 +1,27 @@
+{
+  "game": {
+
+  },
+
+  "display": {
+    "robot1_color"   : "blue",
+    "robot2_color"   : "white",
+    "obstacle_color" : "green",
+    "ball_color"     : "red",
+    "goal_color"     : "yellow",
+    "line_width"     : 2
+  },
+
+  "physics": {
+    "scale"                 : 100,
+    "robot_damping"         : 0.5,
+    "robot_angular_damping" : 0.5
+  },
+
+  "network": {
+    "robot1_ip"   : "127.0.0.1",
+    "robot1_port" : 50100,
+    "robot2_ip"   : "127.0.0.1",
+    "robot2_port" : 50200
+  }
+}

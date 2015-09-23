@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <title>LIAC-SOCCER (v1.0.0)</title>
+
+  <link rel="stylesheet" href="css/vendor.min.css">
+  <link rel="stylesheet" href="css/app.min.css">
+  <script type="text/javascript" src="js/vendor.min.js"></script>
+  <script type="text/javascript" src="js/app.min.js"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand"><i class="fa fa-soccer-ball-o"></i></a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Game</a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-fw fa-file"></i> New Game</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><i class="fa fa-fw fa-exchange"></i> Invert Players</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-male"></i> Load Bot</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><i class="fa fa-fw fa-sign-out"></i> Exit</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Execution</a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-fw fa-play"></i> Play</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-pause"></i> Pause</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-play-circle-o"></i> Step</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-stop"></i> Stop</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-refresh"></i> Reset Ball</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logs</a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-fw fa-floppy-o"></i> Save game</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-bookmark"></i> Save bot 1</a></li>
+              <li><a href="#"><i class="fa fa-fw fa-bookmark-o"></i> Save bot 2</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><i class="fa fa-fw fa-info"></i> About</a></li>
+            </ul>
+          </li>
+        </ul>
+
+    </div>
+  </nav>
+
+  <div class="sc-info">
+      
+    <div class="sc-info-commands">
+      <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-default" title="Reset Ball">
+          <i class="fa fa-refresh"></i>
+        </a>
+        <a class="btn btn-default" title="Play">
+          <i class="fa fa-play"></i>
+        </a>
+        <a class="btn btn-default" title="Step">
+          <i class="fa fa-play-circle-o"></i>
+        </a>
+        <a class="btn btn-default" title="Pause">
+          <i class="fa fa-pause"></i>
+        </a>
+        <a class="btn btn-default" title="Stop">
+          <i class="fa fa-stop"></i>
+        </a>
+        <a class="btn btn-default" title="Invert Players">
+          <i class="fa fa-exchange"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="sc-info-panel">
+      <div class="sc-info-panel-score">
+        <span id="score-1">0</span>
+      </div>
+      <div class="sc-info-panel-body">
+        <h4 id="name-1">127.0.0.1:5000</h4>
+        <em><small><span id="status-1">Disconnected</span></small></em>
+      </div>
+    </div>
+    <div class="sc-info-panel">
+      <div class="sc-info-panel-score">
+        <span id="score-1">99</span>
+      </div>
+      <div class="sc-info-panel-body">
+        <h4><span id="name-2">My lovely bot</span></h4>
+        <em><small><span id="status-2">Connected</span></small></em>
+      </div>
+    </div>
+<!-- 
+    <div class="sc-info-log">
+      <div class="sc-info-log-header">Game debug</div>
+      <textarea readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt alias expedita ducimus neque cum debitis labore corporis sed dicta dolores architecto commodi quam nulla non saepe a distinctio magni, cumque. Odio laboriosam aut minus provident rem quaerat praesentium autem, placeat maiores doloribus ratione, quo id, itaque nihil vel modi hic perspiciatis natus debitis ad architecto officiis. Ipsam, voluptatem, exercitationem natus, provident quasi nihil aliquam commodi blanditiis illum possimus laboriosam cupiditate quam? Minima repellat vel quas quidem suscipit tenetur. Iure maxime ipsam, praesentium itaque quis voluptas veritatis molestiae fugiat minus ducimus repellendus mollitia! Vel consectetur eligendi, quod exercitationem molestias animi saepe.</textarea>
+    </div> -->
+
+  </div>
+
+  <div class="sc-canvas">
+    <canvas id="game" width="2000" height="1500"></canvas>
+  </div>
+
+
+  <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip({delay:{'show':1000, 'hide':100}})
+  })
+  </script>
+  <script>run();</script>
+</body>
+</html>
