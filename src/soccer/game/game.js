@@ -9,6 +9,12 @@
   }
 
   Game.prototype.initialize = function() {
+    var s_gs_iterations = app.config.physics.gs_iterations;
+    var s_robot_friction = app.config.physics.robot_friction;
+    var s_robot_restitution = app.config.physics.robot_restitution;
+    var s_ball_friction = app.config.physics.ball_friction;
+    var s_ball_restitution = app.config.physics.ball_restitution;
+
     // CREATEJS ---------------------------------------------------------------
     this.stage = new createjs.Stage('game');
     var w = this.stage.canvas.width;
@@ -16,12 +22,14 @@
 
     this.stage.x = w/2;
     this.stage.y = h/2;
+    // ------------------------------------------------------------------------
 
     // PHYSICS ----------------------------------------------------------------
     this.world = new p2.World({
-      solver: new p2.GSSolver({iterations:128}),
+      solver: new p2.GSSolver({iterations:s_gs_iterations}),
       gravity: [0, 0]
     })
+    // ------------------------------------------------------------------------
 
     // GAME -------------------------------------------------------------------
     // outer obstacles
@@ -47,26 +55,39 @@
     this.addObject(this.ball);
     this.addObject(this.robot1);
     this.addObject(this.robot2);
+    // ------------------------------------------------------------------------
 
     // PHYSICAL MATERIALS -----------------------------------------------------
-    var create_material = function(w, m1, m2, f, r) {
-      w.addContactMaterial(new p2.ContactMaterial(m1, m2, {
-        friction    : f,
-        restitution : r
-      }));
-    }
-
+    // set material
     var w = this.world;
     for (var i=0; i<this.objects.length; i++) {
       var obj = this.objects[i];
       if (obj.physical_material) {
-        create_material(w, obj.physical_material, this.ball.physical_material, 0, 1);
-        create_material(w, obj.physical_material, this.robot1.physical_material, 0, .9);
-        create_material(w, obj.physical_material, this.robot2.physical_material, 0, .9);
+        this.world.addContactMaterial(
+          new p2.ContactMaterial(
+            obj.physical_material,
+            this.ball.physical_material,
+            {friction:s_ball_friction, restitution:s_ball_restitution}
+          )
+        );
+        this.world.addContactMaterial(
+          new p2.ContactMaterial(
+            obj.physical_material,
+            this.robot1.physical_material,
+            {friction:s_robot_friction, restitution:s_robot_restitution}
+          )
+        );
+        this.world.addContactMaterial(
+          new p2.ContactMaterial(
+            obj.physical_material,
+            this.robot2.physical_material,
+            {friction:s_robot_friction, restitution:s_robot_restitution}
+          )
+        );
       }
     }
-
-    // CONTACT
+  
+    // set contact callbacks
     this.world.on("beginContact", function(event) {
       var a = event.bodyA.label;
       var b = event.bodyB.label;
@@ -74,7 +95,7 @@
         console.log('GOAL!')
       }
     });
-
+    // ------------------------------------------------------------------------
   }
 
   Game.prototype.addObject = function(object) {
@@ -93,12 +114,13 @@
   }
 
   Game.prototype.update = function(tick) {
+    var s_substeps = app.config.physics.substeps;
     this.time += tick;
 
     for (var i=0; i<this.objects.length; i++) {
       this.objects[i].update();
     }
-    this.world.step(tick, 0, 128);
+    this.world.step(tick, 0, s_substeps);
     this.stage.update();
 
     // TESTE

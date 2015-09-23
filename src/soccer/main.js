@@ -33,14 +33,18 @@ var stub_config = {
 
   "physics": {
     "scale"                      : 100,
-    "ball_damping"               : 0.0,
+    "gs_iterations"              : 128,
+    "substeps"                   : 128,
+    "ball_mass"                  : 1,
+    "ball_damping"               : 0.5,
     "ball_friction"              : 0,
     "ball_restitution"           : 1,
     "robot_max_force"            : 50,
     "robot_max_force_inverse"    : 25,
     "robot_max_steer"            : 1,
-    "robot_max_velocity"         : 5,
+    "robot_max_velocity"         : 8,
     "robot_max_angular_velocity" : 5,
+    "robot_mass"                 : 10,
     "robot_damping"              : 0.0,
     "robot_friction"             : 0,
     "robot_restitution"          : 0.9

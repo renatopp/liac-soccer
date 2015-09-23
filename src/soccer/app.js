@@ -3,15 +3,16 @@
 
   var App = function(config) {
     this.config = config;
+    this.game = null;
+  }
+
+  App.prototype.initialize = function() {
     this.game = new Game();
+    this.game.initialize();
 
     var self = this;
     createjs.Ticker.framerate = 60;
     createjs.Ticker.on('tick', function(e) { self.on_update(e.delta/1000.); });
-  }
-
-  App.prototype.initialize = function() {
-    this.game.initialize();
   }
   App.prototype.on_update = function(tick) {
     this.game.update(tick);
