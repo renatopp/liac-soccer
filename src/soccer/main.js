@@ -3,12 +3,12 @@ var soccer = {};
 var desktop = {};
 var app;
 var config;
+var logger;
 // ============================================================================
 
 // INITIALIZE ENVIRONMENT =====================================================
 // If is running in nodejs
 if (window.require) {
-  
   // nodejs modules
   desktop.gui = require('nw.gui');
   desktop.fs  = require('fs');
@@ -30,6 +30,18 @@ if (window.require) {
 
 
 function run() {
+  logger = new soccer.Logger();
+
+  // logging
+  if (desktop) {
+    logger.info('Running on desktop version.');
+  } else {
+    logger.info('Running on browser.');
+    logger.warning('Brower is used only for tests during development. ' +
+                   "Some feature won't work correctly.");
+  }
+
+  // initialize everything
   app = new soccer.App();
   app.initialize();
 }
@@ -70,10 +82,10 @@ function get_stub_config() {
     },
 
     "network": {
-      "robot1_ip"   : "127.0.0.1",
-      "robot1_port" : 50100,
-      "robot2_ip"   : "127.0.0.1",
-      "robot2_port" : 50200
+      "host"            : "127.0.0.1",
+      "max_connections" : 2,
+      "move_timeout"    : 500,
+      "port"            : 50100
     }
   };
 }
