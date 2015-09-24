@@ -2,40 +2,51 @@
   'use strict';
 
   var Goal = function(x, y, w, h) {
-    var s_scale = app.config.physics.scale;
-    var s_color = app.config.display.goal_color;
-    var s_line  = app.config.display.line_width;
-
     this.display_object = null;
     this.physical_object = null;
 
-    // DISPLAY OBJECT ---------------------------------------------------------
+    // variables
+    var scale = config.physics.scale;
+    var color = config.display.goal_color;
+    var line = config.display.line_width;
+
+    // DISPLAY OBJECT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     this.display_object = new createjs.Shape();
-    this.display_object.graphics.ss(s_line).s(s_color).r(-w/2, -h/2, w, h);
     this.display_object.x = x;
     this.display_object.x = y;
-    // ------------------------------------------------------------------------
+    this.display_object.graphics
+                          .setStrokeStyle(line)
+                          .beginStroke(color)
+                          .drawRect(-w/2, -h/2, w, h);
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    // PHYSICS ----------------------------------------------------------------
+    // PHYSICS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    var width = w/scale;
+    var height = h/scale;
+    var mass = 0;
+    var position = [x/scale, y/scale];
+    var collisionResponse = false;
+
+    // shape
+    var shape = new p2.Box({width:width, height:height});
+
+    // body
     this.physical_object = new p2.Body({
-      mass              : 0,
-      position          : [x/s_scale, y/s_scale],
-      collisionResponse : false,
+      collisionResponse : collisionResponse,
+      position : position,
+      mass : mass,
     });
-    var shape = new p2.Box({width:w/s_scale, height:h/s_scale});
-    
     this.physical_object.label = 'goal';
     this.physical_object.addShape(shape);
-    // ------------------------------------------------------------------------
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   }
   
   Goal.prototype.update = function() {
-    var s_scale = app.config.physics.scale;
-
-    this.display_object.x = this.physical_object.position[0]*s_scale;
-    this.display_object.y = this.physical_object.position[1]*s_scale;
+    var scale = config.physics.scale;
+    this.display_object.x = this.physical_object.position[0]*scale;
+    this.display_object.y = this.physical_object.position[1]*scale;
     this.display_object.rotation = this.physical_object.angle;
   }
 
-  window.Goal = Goal;
+  soccer.Goal = Goal;
 })()

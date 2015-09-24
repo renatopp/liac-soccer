@@ -21,6 +21,7 @@ var vendor_fonts = [
   'bower_components/font-awesome/fonts/*',
 ];
 var app_js = [
+  'src/soccer/main.js',
   'src/soccer/**/*.js',
 ];
 var app_css = [

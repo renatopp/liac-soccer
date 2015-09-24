@@ -2,7 +2,6 @@
   'use strict';
 
   var Robot = function(id, x, y, r) {
-    // Initialization
     this.id                 = id;
     this.display_object     = null;
     this.display_chassis    = null;
@@ -13,95 +12,96 @@
     this.chassis            = null;
     this.vehicle            = null;
 
-    // Settings
-    var s_color   = app.config.display['robot'+id+'_color'];
-    var s_line    = app.config.display.line_width;
-    var s_scale   = app.config.physics.scale;
-    var s_damping = app.config.physics.robot_damping;
-    var s_mass    = app.config.physics.robot_mass;
+    // variables
+    var color = config.display['robot'+id+'_color'];
+    var line = config.display.line_width;
+    var scale = config.physics.scale;
+    var damping = config.physics.robot_damping;
+    var mass = config.physics.robot_mass;
+    var friction = config.physics.robot_wheel_friction;
 
-
-    // DISPLAY OBJECT ---------------------------------------------------------
-    this.display_chassis = new createjs.Shape();
-    this.display_chassis.graphics
-        .ss(s_line)
-        .s(s_color)
-        .r(-r/2, -r/2, r, r)
-        .mt(0, 0)
-        .lt(0, -r/2)
-    
-    this.display_frontwheel = new createjs.Shape();
-    this.display_frontwheel.graphics.f('red').r(-5, -10, 10, 20);
-    this.display_frontwheel.y = -r/2+5;
-
-    this.display_backwheel = new createjs.Shape();
-    this.display_backwheel.graphics.f('pink').r(-5, -10, 10, 20);
-    this.display_backwheel.y = r/2-25;
-
-    this.display_object = new createjs.Container();
-    this.display_object.addChild(this.display_frontwheel);
-    this.display_object.addChild(this.display_backwheel);
-    this.display_object.addChild(this.display_chassis);
+    // DISPLAY OBJECT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // chassis
+    this.display_object = new createjs.Shape();
     this.display_object.x = x;
     this.display_object.x = y;
-    // ------------------------------------------------------------------------
+    this.display_object.graphics
+                          .setStrokeStyle(line)
+                          .beginStroke(color)
+                          .drawRect(-r/2, -r/2, r, r)
+                          .moveTo(0, 0)
+                          .lineTo(0, -r/2);
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    // PHYSICS ----------------------------------------------------------------
-    this.chassis = new p2.Body({
-      mass     : s_mass,
-      position : [x/s_scale, y/s_scale]
-    });
-    var shape = new p2.Box({width:r/s_scale, height:r/s_scale});
+    // PHYSICS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // variables
+    var width = r/scale;
+    var height = width;
+    var position = [x/scale, y/scale];
+    var front_wheel_pos = [0, height/2];
+    var back_wheel_pos = [0, -height/2];
+
+    // shape
+    var shape = new p2.Box({width:width, height:height});
+
+    // material
     shape.material = new p2.Material();
-    this.chassis.addShape(shape);
-
-    this.vehicle = new p2.TopDownVehicle(this.chassis);
-    this.front_wheel = this.vehicle.addWheel({localPosition:[0, r/s_scale/2]});
-    this.front_wheel.setSideFriction(400);
-    this.back_wheel = this.vehicle.addWheel({localPosition:[0, -r/s_scale/2]});
-    this.back_wheel.setSideFriction(400);
-    
-    this.physical_object = this.chassis;
-    this.physical_object.label = 'robot';
-    this.physical_object.damping = s_damping;
     this.physical_material = shape.material;
-    // ------------------------------------------------------------------------
+
+    // body (chassis)
+    this.physical_object = new p2.Body({mass:mass, position:position});
+    this.physical_object.label = 'robot';
+    this.physical_object.damping = damping;
+    this.physical_object.addShape(shape);
+
+    // vehicle
+    this.vehicle = new p2.TopDownVehicle(this.physical_object);
+    
+    // front wheel
+    this.front_wheel = this.vehicle.addWheel({localPosition:front_wheel_pos});
+    this.front_wheel.setSideFriction(friction);
+
+    // back wheel
+    this.back_wheel = this.vehicle.addWheel({localPosition:back_wheel_pos});
+    this.back_wheel.setSideFriction(friction);
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   }
   
   Robot.prototype.update = function() {
-    // Settings
-    var s_scale     = app.config.physics.scale;
-    var s_maxvel    = app.config.physics.robot_max_velocity;
-    var s_maxangvel = app.config.physics.robot_max_angular_velocity;
+    // variables
+    var scale     = config.physics.scale;
+    var maxvel    = config.physics.robot_max_velocity;
+    var maxangvel = config.physics.robot_max_angular_velocity;
 
-    // Climp velocity
+    // clamp velocity
     var vx = this.physical_object.velocity[0];
     var vy = this.physical_object.velocity[1];
     var norm = Math.sqrt(vx*vx, vy*vy);
-    if (norm && norm > s_maxvel) {
-      var scale = s_maxvel/norm;
-      this.physical_object.velocity = [vx*scale, vy*scale];
+    if (norm && norm > maxvel) {
+      var ratio = maxvel/norm;
+      this.physical_object.velocity = [vx*ratio, vy*ratio];
     }
 
-    // Climp angular velocity
+    // clamp angular velocity
     var a = this.physical_object.angularVelocity;
-    var ma = s_maxangvel;
+    var ma = maxangvel;
     this.physical_object.angularVelocity = Math.max(Math.min(a, ma), -ma);
 
     // Update visual
-    this.display_object.x = this.physical_object.position[0]*s_scale;
-    this.display_object.y = this.physical_object.position[1]*s_scale;
+    this.display_object.x = this.physical_object.position[0]*scale;
+    this.display_object.y = this.physical_object.position[1]*scale;
     this.display_object.rotation = this.physical_object.angle*(180/Math.PI);
-    this.display_frontwheel.rotation = -this.front_wheel.steerValue*(180/Math.PI);
   }
 
   Robot.prototype.act = function(force, steer) {
-    var s_maxforce = app.config.physics.robot_max_force;
-    var s_maxsteer = app.config.physics.robot_max_steer;
+    var mf = config.physics.robot_max_force;
+    var mfi = config.physics.robot_max_force_inverse;
+    var ms = config.physics.robot_max_steer;
 
-    this.front_wheel.steerValue = Math.max(Math.min(steer, 1), -1);
-    this.front_wheel.engineForce = force;
+    // notice that negative force goes forward (due to createjs canvas)
+    this.front_wheel.steerValue = Math.max(Math.min(steer, ms), -ms);
+    this.front_wheel.engineForce = Math.max(Math.min(force, mfi), -mf);
   }
 
-  window.Robot = Robot;
+  soccer.Robot = Robot;
 })();
