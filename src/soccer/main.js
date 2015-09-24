@@ -16,10 +16,10 @@ if (window.require) {
   desktop.io  = require('socket.io');
 
   // node-webkit variables
-  desktop.win = gui.Window.get();
+  desktop.win = desktop.gui.Window.get();
 
   // configuration
-  config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
+  config = JSON.parse(desktop.fs.readFileSync('config.json', 'utf-8'));
 
 // If is running in browser (for tests)
 } else {
@@ -30,7 +30,7 @@ if (window.require) {
 
 
 function run() {
-  app = new soccer.App(config);
+  app = new soccer.App();
   app.initialize();
 }
 

@@ -4,8 +4,7 @@
   /**
    * App handles the communication among GUI, Game and Network.
    */
-  var App = function(config) {
-    this.config  = config;
+  var App = function() {
     this.game    = null;
     this.network = null;
   }
