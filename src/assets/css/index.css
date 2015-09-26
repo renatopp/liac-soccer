@@ -21,9 +21,32 @@ html, body {
   color: #555 !important;
   cursor: default;
 }
+.btn-default:focus {
+  outline: none;
+  /*background-color: white !important;*/
+}
+a[disabled] {
+  cursor: default !important;
+  opacity: 0.20 !important;
+}
+.dropdown-menu>li>a[disabled] {
+  background-color: #fff;
+  border-color: #ccc;
+}
 
 
 /* LIAC-SOCCER */
+.sc-splash {
+  position : absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 10000;
+  background-color: #efefef;
+  text-align: center;
+  padding: 100px;
+}
 .sc-info {
   position    : absolute;
   top         : 28px;
@@ -42,10 +65,15 @@ html, body {
   padding       : 10px;
   padding-top   : 38px;
   padding-right : 310px;
+  text-align: center;
+  background-color: #EBEBEB;
+  /*background-color: red;*/
 }
 .sc-canvas canvas {
-  background-color : black;
-  width            : 100%;
+  /*width            : 100%;*/
+  margin: 0 auto;
+  /*border : 1px solid #D6D6D6;;*/
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.25);
 }
 
 

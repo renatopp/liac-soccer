@@ -77,7 +77,7 @@
 
 
   /** Get robot readings about obstacles */
-  Robot.prototype.get_sensors = function(world) {
+  Robot.prototype.get_sensors = function() {
     var sensors = {};
 
     var scale = config.physics.scale;
@@ -109,6 +109,8 @@
       }
     }
 
+    this.display_ray.graphics.clear();
+
     // do the raycast around the robot (each 5 degrees)
     for (var i=0; i<360; i+=15) {
       // reset nearest information
@@ -121,7 +123,7 @@
       ray.update();
       
       // do the raycasting (p2 calls the ray.callback for each collision)
-      world.raycast(result, ray);
+      this.physical_object.world.raycast(result, ray);
 
       // update sensor info
       sensors[i] = Math.floor(nearest_distance*scale);
@@ -140,9 +142,10 @@
   Robot.prototype._draw_ray = function(ray) {
     var color = config.display['robot'+this.id+'_color'];
     var scale = config.physics.scale;
+    var line = config.display.line_width;
 
     this.display_ray.graphics
-      .setStrokeStyle(2)
+      .setStrokeStyle(line)
       .beginStroke(color)
       .moveTo(ray.from[0]*scale, ray.from[1]*scale)
       .lineTo(ray.to[0]*scale, ray.to[1]*scale)
@@ -195,8 +198,6 @@
     this.display_object.x = this.physical_object.position[0]*scale;
     this.display_object.y = this.physical_object.position[1]*scale;
     this.display_object.rotation = soccer.utils.to_degrees(angle);
-
-    this.display_ray.graphics.clear()
   }
 
   Robot.prototype.act = function(force, steer) {

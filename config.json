@@ -1,23 +1,25 @@
 {
-  "game": {
-  },
+    "game": {
+    },
 
-  "display": {
-    "fps"            : 600,
-    "robot1_color"   : "blue",
-    "robot2_color"   : "white",
-    "obstacle_color" : "green",
-    "ball_color"     : "red",
-    "goal_color"     : "yellow",
-    "line_width"     : 2
-  },
+    "display": {
+      "fps"            : 600,
+      "robot1_color"   : "#51AEE7",
+      "robot2_color"   : "#CE662F",
+      "obstacle_color" : "#EBEEF7",
+      "ball_color"     : "#697F4A",
+      "goal_color"     : "#F2CD02",
+      "bg_color"       : "#333333",
+      "line_width"     : 3
+    },
 
-  "debug" : {
-    "show_robot1_sensors": false,
-    "show_robot2_sensors": false
-  },
+    "debug" : {
+      "show_fps" : false,
+      "show_robot1_sensors": false,
+      "show_robot2_sensors": false
+    },
 
-  "physics": {
+    "physics": {
       "scale"                      : 100,
       "gs_iterations"              : 128,
       "substeps"                   : 128,
@@ -36,12 +38,11 @@
       "robot_damping"              : 0.0,
       "robot_friction"             : 0,
       "robot_restitution"          : 0.9
-  },
+    },
 
-  "network": {
-    "host"            : "127.0.0.1",
-    "port"            : 50100,
-    "move_timeout"    : 500,
-    "max_connections" : 2
+    "network": {
+      "host"            : "127.0.0.1",
+      "port"            : 50100,
+      "max_connections" : 2
+    }
   }
-}

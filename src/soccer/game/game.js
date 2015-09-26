@@ -40,6 +40,8 @@
     // move stage so (0, 0) can be at the center of the screen;
     this.stage.x = this.stage.canvas.width/2;
     this.stage.y = this.stage.canvas.height/2;
+
+    this.stage.canvas.style.background = config.display.bg_color;
   }
 
   /** Initialize P2JS world */
@@ -174,7 +176,7 @@
   Game.prototype.get_robot_info = function(id) {
     var robot = (id == 1)? (this.robot1) : (this.robot2);
     var goal  = (id == 1)? (this.goal1)  : (this.goal2);
-    var sensors = robot.get_sensors(this.world);
+    var sensors = robot.get_sensors();
 
     return {
       score: robot.score,

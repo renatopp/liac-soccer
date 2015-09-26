@@ -7,6 +7,9 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(('localhost', 50100))
 
 
+name = 'Bot No=%d'%(random.random()*100000);
+s.send(json.dumps({'name':name}))
+
 while True:
     string = s.recv(1024)
     data = json.loads(string)

@@ -12,6 +12,13 @@
   <script type="text/javascript" src="js/app.min.js"></script>
 </head>
 <body>
+  
+  <div class="sc-splash">
+    <h1><i class="fa fa-gear fa-spin fa-2x"></i></h1>
+  </div>
+
+
+
 
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -28,9 +35,9 @@
               <li><a href="#" id="btn-newgame"><i class="fa fa-fw fa-file"></i> New Game</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#" id="btn-invert"><i class="fa fa-fw fa-exchange"></i> Invert Players</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-male"></i> Load Bot</a></li>
+              <!-- <li><a href="#"><i class="fa fa-fw fa-male"></i> Load Bot</a></li> -->
               <li role="separator" class="divider"></li>
-              <li><a href="#"><i class="fa fa-fw fa-sign-out"></i> Exit</a></li>
+              <li><a href="#" id="btn-exit"><i class="fa fa-fw fa-sign-out"></i> Exit</a></li>
             </ul>
           </li>
 
@@ -44,7 +51,7 @@
               <li><a href="#" id="btn-reset"><i class="fa fa-fw fa-refresh"></i> Reset Ball</a></li>
             </ul>
           </li>
-
+<!-- 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logs</a>
             <ul class="dropdown-menu">
@@ -52,14 +59,22 @@
               <li><a href="#"><i class="fa fa-fw fa-bookmark"></i> Save bot 1</a></li>
               <li><a href="#"><i class="fa fa-fw fa-bookmark-o"></i> Save bot 2</a></li>
             </ul>
+          </li> -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Debug</a>
+            <ul class="dropdown-menu">
+              <li><a href="#" id="btn-toggle-sensors1"><i class="fa fa-fw fa-feed"></i> Toggle robot 1 sensors</a></li>
+              <li><a href="#" id="btn-toggle-sensors2"><i class="fa fa-fw fa-feed"></i> Toggle robot 2 sensors</a></li>
+            </ul>
           </li>
 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+              <li><a href="#" id="btn-documentation"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#"><i class="fa fa-fw fa-info"></i> About</a></li>
+              <li><a href="#" id="btn-about" data-toggle="modal" data-target="#modal-about"><i class="fa fa-fw fa-info"></i> About</a></li>
             </ul>
           </li>
         </ul>
@@ -71,22 +86,22 @@
       
     <div class="sc-info-commands">
       <div class="btn-group" role="group" aria-label="...">
-        <a id="btn-reset" onclick="app.do_reset();" href="#" class="btn btn-default" title="Reset Ball">
+        <a id="btn-reset" href="#" class="btn btn-default" title="Reset Ball">
           <i class="fa fa-refresh"></i>
         </a>
-        <a id="btn-play" onclick="app.do_play();" href="#" class="btn btn-default" title="Play">
+        <a id="btn-play" href="#" class="btn btn-default" title="Play">
           <i class="fa fa-play"></i>
         </a>
         <!-- <a id="btn-step" class="btn btn-default" title="Step">
           <i class="fa fa-play-circle-o"></i>
         </a> -->
-        <a id="btn-pause" onclick="app.do_pause();" href="#" class="btn btn-default" title="Pause">
+        <a id="btn-pause" href="#" class="btn btn-default" title="Pause">
           <i class="fa fa-pause"></i>
         </a>
-        <a id="btn-stop" onclick="app.do_stop();" href="#" class="btn btn-default" title="Stop">
+        <a id="btn-stop" href="#" class="btn btn-default" title="Stop">
           <i class="fa fa-stop"></i>
         </a>
-        <a id="btn-invert" onclick="app.do_invert();" href="#" class="btn btn-default" title="Invert Players">
+        <a id="btn-invert" href="#" class="btn btn-default" title="Invert Players">
           <i class="fa fa-exchange"></i>
         </a>
       </div>
@@ -121,6 +136,24 @@
   <div class="sc-canvas">
     <canvas id="game" width="2000" height="1500"></canvas>
   </div>
+
+  <div id="modal-about" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
   <script>

@@ -8,55 +8,172 @@ var logger;
 var stats;
 // ============================================================================
 
-// INITIALIZE ENVIRONMENT =====================================================
-// If is running in nodejs
-if (window.require) {
-  // nodejs modules
-  desktop.gui = require('nw.gui');
-  desktop.fs  = require('fs');
-  desktop.net = require('net');
-  desktop.io  = require('socket.io');
-
-  // node-webkit variables
-  desktop.win = desktop.gui.Window.get();
-
-  // configuration
-  config = JSON.parse(desktop.fs.readFileSync('config.json', 'utf-8'));
-
-// If is running in browser (for tests)
-} else {
-  desktop = null;
-  config  = get_stub_config();
-}
-// ============================================================================
-
-// GRAB GUI ELEMENTS ==========================================================
-function _register_gui() {
-  gui.score1      = $(document.getElementById('score-1'));
-  gui.score2      = $(document.getElementById('score-2'));
-  gui.name1       = $(document.getElementById('name-1'));
-  gui.name2       = $(document.getElementById('name-2'));
-  gui.status1     = $(document.getElementById('status-2'));
-  gui.status2     = $(document.getElementById('status-2'));
-  gui.btn_play    = $(document.getElementById('btn-play'));
-  gui.btn_pause   = $(document.getElementById('btn-pause'));
-  gui.btn_stop    = $(document.getElementById('btn-stop'));
-  gui.btn_reset   = $(document.getElementById('btn-reset'));
-  gui.btn_invert  = $(document.getElementById('btn-invert'));
-  gui.btn_newgame = $(document.getElementById('btn-newgame'));
-}
-// ============================================================================
-
 function run() {
-  _register_gui();
-  logger = new soccer.Logger();
-  stats = new Stats();
-  stats.setMode(0);
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.left = '5px';
-  stats.domElement.style.bottom = '5px';
-  document.body.appendChild(stats.domElement);
+  _initialize_desktop();
+  _initialize_gui();
+  _initialize_subsystems();
+  _initialize_canvas_resize();
+  _initialize_app();
+  _hide_splash();
+}
 
+/** Set up environment variables */
+function _initialize_desktop() {
+  // If is running in nodejs
+  if (window.require) {
+    // nodejs modules
+    desktop.gui = require('nw.gui');
+    desktop.fs  = require('fs');
+    desktop.net = require('net');
+    desktop.io  = require('socket.io');
+
+    // node-webkit variables
+    desktop.win = desktop.gui.Window.get();
+
+    // configuration
+    config = JSON.parse(desktop.fs.readFileSync('config.json', 'utf-8'));
+
+  // If is running in browser (for tests)
+  } else {
+    desktop = null;
+    config  = _get_stub_config();
+  }
+}
+
+/** Grab and set up DOM elements */
+function _initialize_gui() {
+  gui.score1             = $('*[id="score-1"]');
+  gui.score2             = $('*[id="score-2"]');
+  gui.name1              = $('*[id="name-1"]');
+  gui.name2              = $('*[id="name-2"]');
+  gui.status1            = $('*[id="status-1"]');
+  gui.status2            = $('*[id="status-2"]');
+  gui.btn_newgame        = $('*[id="btn-newgame"]');
+  gui.btn_play           = $('*[id="btn-play"]');
+  gui.btn_pause          = $('*[id="btn-pause"]');
+  gui.btn_stop           = $('*[id="btn-stop"]');
+  gui.btn_reset          = $('*[id="btn-reset"]');
+  gui.btn_invert         = $('*[id="btn-invert"]');
+  gui.btn_exit           = $('*[id="btn-exit"]');
+  gui.btn_togglesensors1 = $('*[id="btn-toggle-sensors1"]');
+  gui.btn_togglesensors2 = $('*[id="btn-toggle-sensors2"]');
+  gui.btn_documentation  = $('*[id="btn-documentation"]');
+  gui.btn_about          = $('*[id="btn-about"]');
+
+  // Set click events and avoid click while disabled
+  gui.btn_newgame.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_newgame();
+    }
+  });
+  gui.btn_play.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_play();
+    }
+  });
+  gui.btn_pause.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_pause();
+    }
+  });
+  gui.btn_stop.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_stop();
+    }
+  });
+  gui.btn_reset.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_reset();
+    }
+  });
+  gui.btn_invert.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_invert();
+    }
+  });
+  gui.btn_togglesensors1.click(function() {
+    config.debug.show_robot1_sensors = !config.debug.show_robot1_sensors;
+  });
+  gui.btn_togglesensors2.click(function() {
+    config.debug.show_robot2_sensors = !config.debug.show_robot2_sensors;
+  });
+  gui.btn_exit.click(function() {
+    desktop.gui.App.quit();
+  });
+
+  // remove focus from buttons so they do not change colors (bue to bootstrap)
+  gui.btn_newgame.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+  gui.btn_play.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+  gui.btn_pause.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+  gui.btn_stop.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+  gui.btn_reset.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+  gui.btn_invert.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
+
+  // button states
+  gui.btn_play.attr('disabled', 'disabled');
+  gui.btn_pause.attr('disabled', 'disabled');
+  gui.btn_stop.attr('disabled', 'disabled');
+  gui.btn_reset.attr('disabled', 'disabled');
+}
+
+/** Set up sub systems */
+function _initialize_subsystems() {
+  logger = new soccer.Logger();
+
+  if (config.debug.show_fps) {
+    stats = new Stats();
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '5px';
+    stats.domElement.style.bottom = '5px';
+    document.body.appendChild(stats.domElement);
+  }
+}
+
+function _initialize_canvas_resize() {
+  var canvas = document.getElementById('game');
+  var container = $(canvas.parentElement);
+
+  function resize() {
+    var width = window.innerWidth-510;
+    var height = window.innerHeight-38;
+    // var width = container.width();
+    // var height = container.height();
+
+    if (width > height) {
+      canvas.style.width = '';
+      canvas.style.height = '100%';
+    } else {
+      canvas.style.width = '100%';
+      canvas.style.height= '';
+    }
+  }
+
+  window.addEventListener('resize', function() {
+    resize();
+  })
+  resize();
+}
+
+function _initialize_app() {
   // logging
   if (desktop) {
     logger.info('Running on desktop version.');
@@ -71,22 +188,32 @@ function run() {
   app.initialize();
 }
 
-function get_stub_config() {
+function _hide_splash() {
+  if (desktop) {
+    $('.sc-splash').delay(700).fadeOut(700)
+  } else {
+    $('.sc-splash').hide();
+  }
+}
+
+function _get_stub_config() {
   return {
     "game": {
     },
 
     "display": {
       "fps"            : 600,
-      "robot1_color"   : "blue",
-      "robot2_color"   : "white",
-      "obstacle_color" : "green",
-      "ball_color"     : "red",
-      "goal_color"     : "yellow",
-      "line_width"     : 2
+      "robot1_color"   : "#51AEE7",
+      "robot2_color"   : "#CE662F",
+      "obstacle_color" : "#EBEEF7",
+      "ball_color"     : "#697F4A",
+      "goal_color"     : "#F2CD02",
+      "bg_color"       : "#333333",
+      "line_width"     : 3
     },
 
     "debug" : {
+      "show_fps" : true,
       "show_robot1_sensors": false,
       "show_robot2_sensors": false
     },
