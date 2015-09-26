@@ -10,7 +10,7 @@ var vendor_js = [
   'bower_components/TweenJS/lib/tweenjs-0.6.1.min.js',
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/bootstrap/dist/js/bootstrap.min.js',
-  // 'bower_components/PhysicsJS/dist/physicsjs-full.min.js',
+  'bower_components/stats.js/build/stats.min.js',
   'src/assets/js/**/*.js',
 ];
 var vendor_css = [

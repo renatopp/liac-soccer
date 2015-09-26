@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAAB7FBMVEX///+XmZtpamsICAkVFRaOj5KAgoVZXFxaXVwkJiZfY2EpKilWXFcICQgsLywAAAAAAAAAAABITkgmKiUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADBAMSFBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABdbFR+k3IWGxUaHxkSFhJdalaVqYmYppGao5ifpp4kLSMqNCpGVEVZZFSYpZOrrqy7u7zHyMlzc3PMzc7Bw8SwtbJbYFlwfWqjrKDAwsPW19bl5eV6enru7u7n6Ojd3t/IysuapZaLlodjZGTs7Oyvr65TU1P19fXv7+/q6+vi4+NwcXGOmYu0uLQGBgYTEhAZGRZ7enrw8PDx8fHp6enW19eutK/LzczCwsIhIR03NzFJSEFhYFb5+fn4+Pj39/dAPzwbGhjY2NjDw8NMS0RjYliAf3Oko5XOzs9bWlEiIh/f4OLOzs5ycWWBgHO4tqhsa2b8/PvZ2dlYV1ZUVEsiIR5ucHH9/f52dW1ramRVVUwXFxPy9Pj////R0dH+/v79/f1eXl3T1dry9Pn8/f2cnJz8/Pz7+/tvb3DJzNDN0dbq7fby9fvj4+T5+fz29/rz9Phtbm/Hyc4yMzM4NzEuLigrKiUZGBbLqnOQAAAALHRSTlMAg5sECvv7XJux2a/ZRpkaIBTv9xwGTFgKeIMWaNPbch4CCCpeiZeLZC4MBO3pgToAAAH0SURBVBiV7djVb9RREEDhpUCR4lpci7u7OxR3d4q7u1OKu+s/ytuZl5tN04TA3ZzvcXZz57xN8isU6qkRfuMXfuIHvqMM9d3WAAYaaKCBBv5HgY3xDV/xBZ/xCR/xAe/xDk1goIEGGmhg6QW+xRu8xiukZuElXuA5nsFAAw000MBSCWyKp4iEJ4iEmNUhZo9Ri/jfI5TDQAMNNNDAvAMf4gHi6VRMbVH3cQ/x613cgYEGGmiggTkGNsNt3MJN3MB1pLKu4Squ4DIu4SKaw0ADDTTQwHwCW+ACziMWFz9w53AWZ3Aap3ASJ9ASBhpooIEG5hNYgeM4hqM4gsOIWXySq8EhHMQB7Mc+tIKBBhpooIH5BLbGXuzBbuxK2JmwA9uxDVsRL29BGxhooIEGGphPYFtsxiZsxAasRyp1HdZiDVZjFVaiHQw00EADDcwnsD06oBorsBzLEOuWYgkWYxEWYgE6ohMMNNBAAw3MJ7AzumA+5mEu5mA2ZmEmZmA6pmEquqISBhpooIEG5hOYOnrdEM9MwWRMwkRMwHiMw1h0R/LAGWiggQYamGFg6IGe6IUxGI1RGIkR6I0+6It+MNBAAw00sFQCQ38MwEBUYRAGYwiGYhgaEGOggQYaaGCGgSlxmiI/FsdsOP5ijIEGGmiggf868A+ISHoX0E3iQgAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
 
   <title>LIAC-SOCCER (v1.0.0)</title>
 
@@ -24,9 +25,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Game</a>
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="fa fa-fw fa-file"></i> New Game</a></li>
+              <li><a href="#" id="btn-newgame"><i class="fa fa-fw fa-file"></i> New Game</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#"><i class="fa fa-fw fa-exchange"></i> Invert Players</a></li>
+              <li><a href="#" id="btn-invert"><i class="fa fa-fw fa-exchange"></i> Invert Players</a></li>
               <li><a href="#"><i class="fa fa-fw fa-male"></i> Load Bot</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#"><i class="fa fa-fw fa-sign-out"></i> Exit</a></li>
@@ -36,11 +37,11 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Execution</a>
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="fa fa-fw fa-play"></i> Play</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-pause"></i> Pause</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-play-circle-o"></i> Step</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-stop"></i> Stop</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-refresh"></i> Reset Ball</a></li>
+              <li><a href="#" id="btn-play"><i class="fa fa-fw fa-play"></i> Play</a></li>
+              <li><a href="#" id="btn-pause"><i class="fa fa-fw fa-pause"></i> Pause</a></li>
+              <!-- <li><a href="#" id="btn-reset"><i class="fa fa-fw fa-play-circle-o"></i> Step</a></li> -->
+              <li><a href="#" id="btn-stop"><i class="fa fa-fw fa-stop"></i> Stop</a></li>
+              <li><a href="#" id="btn-reset"><i class="fa fa-fw fa-refresh"></i> Reset Ball</a></li>
             </ul>
           </li>
 
@@ -70,22 +71,22 @@
       
     <div class="sc-info-commands">
       <div class="btn-group" role="group" aria-label="...">
-        <a class="btn btn-default" title="Reset Ball">
+        <a id="btn-reset" onclick="app.do_reset();" href="#" class="btn btn-default" title="Reset Ball">
           <i class="fa fa-refresh"></i>
         </a>
-        <a class="btn btn-default" title="Play">
+        <a id="btn-play" onclick="app.do_play();" href="#" class="btn btn-default" title="Play">
           <i class="fa fa-play"></i>
         </a>
-        <a class="btn btn-default" title="Step">
+        <!-- <a id="btn-step" class="btn btn-default" title="Step">
           <i class="fa fa-play-circle-o"></i>
-        </a>
-        <a class="btn btn-default" title="Pause">
+        </a> -->
+        <a id="btn-pause" onclick="app.do_pause();" href="#" class="btn btn-default" title="Pause">
           <i class="fa fa-pause"></i>
         </a>
-        <a class="btn btn-default" title="Stop">
+        <a id="btn-stop" onclick="app.do_stop();" href="#" class="btn btn-default" title="Stop">
           <i class="fa fa-stop"></i>
         </a>
-        <a class="btn btn-default" title="Invert Players">
+        <a id="btn-invert" onclick="app.do_invert();" href="#" class="btn btn-default" title="Invert Players">
           <i class="fa fa-exchange"></i>
         </a>
       </div>
@@ -102,7 +103,7 @@
     </div>
     <div class="sc-info-panel">
       <div class="sc-info-panel-score">
-        <span id="score-1">99</span>
+        <span id="score-2">0</span>
       </div>
       <div class="sc-info-panel-body">
         <h4><span id="name-2">My lovely bot</span></h4>

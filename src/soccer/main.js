@@ -1,9 +1,11 @@
 // GLOBALS ====================================================================
 var soccer = {};
 var desktop = {};
+var gui = {};
 var app;
 var config;
 var logger;
+var stats;
 // ============================================================================
 
 // INITIALIZE ENVIRONMENT =====================================================
@@ -28,17 +30,40 @@ if (window.require) {
 }
 // ============================================================================
 
+// GRAB GUI ELEMENTS ==========================================================
+function _register_gui() {
+  gui.score1      = $(document.getElementById('score-1'));
+  gui.score2      = $(document.getElementById('score-2'));
+  gui.name1       = $(document.getElementById('name-1'));
+  gui.name2       = $(document.getElementById('name-2'));
+  gui.status1     = $(document.getElementById('status-2'));
+  gui.status2     = $(document.getElementById('status-2'));
+  gui.btn_play    = $(document.getElementById('btn-play'));
+  gui.btn_pause   = $(document.getElementById('btn-pause'));
+  gui.btn_stop    = $(document.getElementById('btn-stop'));
+  gui.btn_reset   = $(document.getElementById('btn-reset'));
+  gui.btn_invert  = $(document.getElementById('btn-invert'));
+  gui.btn_newgame = $(document.getElementById('btn-newgame'));
+}
+// ============================================================================
 
 function run() {
+  _register_gui();
   logger = new soccer.Logger();
+  stats = new Stats();
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '5px';
+  stats.domElement.style.bottom = '5px';
+  document.body.appendChild(stats.domElement);
 
   // logging
   if (desktop) {
     logger.info('Running on desktop version.');
   } else {
     logger.info('Running on browser.');
-    logger.warning('Brower is used only for tests during development. ' +
-                   "Some feature won't work correctly.");
+    logger.warn('Brower is used only for tests during development. ' +
+                "Some feature won't work correctly.");
   }
 
   // initialize everything
@@ -49,16 +74,21 @@ function run() {
 function get_stub_config() {
   return {
     "game": {
-
     },
 
     "display": {
+      "fps"            : 600,
       "robot1_color"   : "blue",
       "robot2_color"   : "white",
       "obstacle_color" : "green",
       "ball_color"     : "red",
       "goal_color"     : "yellow",
       "line_width"     : 2
+    },
+
+    "debug" : {
+      "show_robot1_sensors": false,
+      "show_robot2_sensors": false
     },
 
     "physics": {
@@ -69,8 +99,9 @@ function get_stub_config() {
       "ball_damping"               : 0.5,
       "ball_friction"              : 0,
       "ball_restitution"           : 1,
-      "robot_max_force"            : 50,
-      "robot_max_force_inverse"    : 25,
+      "robot_force"                : 50,
+      "robot_max_force"            : 1,
+      "robot_max_force_inverse"    : 0.5,
       "robot_max_steer"            : 1,
       "robot_max_velocity"         : 8,
       "robot_max_angular_velocity" : 5,
@@ -83,9 +114,8 @@ function get_stub_config() {
 
     "network": {
       "host"            : "127.0.0.1",
-      "max_connections" : 2,
-      "move_timeout"    : 500,
-      "port"            : 50100
+      "port"            : 50100,
+      "max_connections" : 2
     }
   };
 }

@@ -2,6 +2,9 @@
   'use strict';
 
   var Ball = function(x, y, r) {
+    this._i_x = x;
+    this._i_y = y;
+
     this.display_object = null;
     this.physical_object = null;
     this.physical_material = null;
@@ -39,6 +42,15 @@
     this.physical_object.addShape(shape);
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   }
+  
+  Ball.prototype.reset = function() {
+    var scale = config.physics.scale;
+    this.display_object.x = this._i_x;
+    this.display_object.y = this._i_y;
+    this.physical_object.position = [this._i_x/scale, this._i_y/scale];
+    this.physical_object.angularVelocity = 0;
+    this.physical_object.velocity = [0, 0];
+  }  
   
   Ball.prototype.update = function() {
     var scale = config.physics.scale;

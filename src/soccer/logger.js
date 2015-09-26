@@ -19,7 +19,7 @@
     console.error('ERROR: '+message);
     // this._send('ERROR', message);
   }
-  Logger.prototype.warning = function(message) {
+  Logger.prototype.warn = function(message) {
     console.warn('WARNING: '+message);
     // this._send('WARNING', message);
   }

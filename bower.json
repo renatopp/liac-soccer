@@ -5,7 +5,7 @@
     "bootstrap": "~3.3.5",
     "EaselJS": "easeljs#~0.8.1",
     "font-awesome": "fontawesome#~4.4.0",
-    "PhysicsJS": "~0.7.0",
+    "stats.js": "*",
     "TweenJS": "~0.6.1"
   }
 }
