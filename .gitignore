@@ -31,7 +31,8 @@ node_modules
 .idea
 
 # Custom
-dist
 bower_components/
 build/
+dist/
+cache/
 todo.list

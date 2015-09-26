@@ -1,6 +1,7 @@
 {
   "name": "liac-soccer",
   "description": "",
+  "version": "1.0.0",
   "author": "Renato de Pontes Pereira <renato.ppontes@gmail.com>",
   "devDependencies": {
     "gulp"            : "*",
@@ -8,6 +9,12 @@
     "gulp-uglify"     : "*",
     "gulp-minify-css" : "*",
     "gulp-connect"    : "*",
+    "merge-stream"    : "*",
+    "del"             : "*",
+    "socket.io"       : "*"
+  },
+
+  "dependences" : {
     "socket.io"       : "*"
   },
 

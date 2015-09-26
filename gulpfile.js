@@ -3,7 +3,10 @@ var concat      = require('gulp-concat');
 var uglify      = require('gulp-uglify');
 var minify      = require('gulp-minify-css');
 var connect     = require('gulp-connect');
+var del         = require('del');
 var exec        = require('child_process').exec;
+var merge       = require('merge-stream');
+
 
 var vendor_js = [
   'bower_components/EaselJS/lib/easeljs-0.8.1.min.js',
@@ -20,6 +23,7 @@ var vendor_css = [
 var vendor_fonts = [
   'bower_components/font-awesome/fonts/*',
 ];
+
 var app_js = [
   'src/soccer/main.js',
   'src/soccer/**/*.js',
@@ -27,9 +31,14 @@ var app_js = [
 var app_css = [
   'src/assets/css/**/*.css'
 ];
-var app_html = ['src/index.html'];
-var app_data = ['src/*.json'];
+var app_html = [
+  'src/index.html'
+];
+var app_data = [
+  'src/*.json'
+];
 
+var build_platforms = ['win32', 'linux32', 'osx32'];
 
 // VENDOR =====================================================================
 gulp.task('_vendor_js', function() {
@@ -99,19 +108,34 @@ gulp.task('_watch', function() {
   gulp.watch(app_js, ['_app_js']);
   gulp.watch(app_css, ['_app_css']);
   gulp.watch(app_html, ['_app_html']);
-  // gulp.watch(app_data, ['_app_data']);
 });
-
 
 
 // NODE WEBKIT ================================================================
-gulp.task('_nw', function() {
+gulp.task('_nw', ['build'], function() {
   exec('nw', '.');
 });
 
+gulp.task('_create_cache', ['build'], function() {
+  return merge(
+    gulp.src(['package.json', 'config.json'])
+        .pipe(gulp.dest('cache')),
+
+    gulp.src(['node_modules/socket.io/**/*'])
+        .pipe(gulp.dest('cache/node_modules/socket.io')),
+
+    gulp.src(['build/**/*'])
+        .pipe(gulp.dest('cache/build'))
+  )
+});
+
+gulp.task('_dist', ['_create_cache'], function() {
+  exec('nwbuild -o dist/ -p '+build_platforms.join(',')+' -v 0.12.2 cache');
+});
 
 
 // COMMANDS ===================================================================
-gulp.task('dev', ['_vendor', '_app']);
-gulp.task('serve', ['dev', '_livereload', '_watch']);
-gulp.task('nw', ['dev', '_nw']);
+gulp.task('build', ['_vendor', '_app']);
+gulp.task('serve', ['build', '_livereload', '_watch']);
+gulp.task('nw', ['_nw']);
+gulp.task('dist', ['_dist'])

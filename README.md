@@ -9,9 +9,10 @@ Documentation: http://inf.ufrgs.br/~rppereira/docs/liac-soccer/
 
 ## Requirements (for developers)
 
-- NodeJS
-- Node-Webkit
-- Bower
+- [NodeJS](https://nodejs.org)
+- [Node-Webkit](http://nwjs.io)
+- [Node-Webkit Builder](https://github.com/nwjs/nw-builder)
+- [Bower](http://bower.io)
 
 ### Running liac-soccer (in development mode)
 
@@ -39,4 +40,4 @@ To run the desktop version (with all features enabled):
 
 Just run:
 
-    gulp build
+    gulp dist
