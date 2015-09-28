@@ -172,6 +172,9 @@
     logger.debug('Changing app state to PLAY.');
     this.state = 'PLAY';
 
+    this._move_timout = 0;
+    this._waiting_moves = false;
+
     gui.btn_play.attr('disabled', 'disabled');
     gui.btn_pause.attr('disabled', false);
     gui.btn_stop.attr('disabled', false);

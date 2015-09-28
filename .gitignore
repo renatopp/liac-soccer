@@ -36,3 +36,4 @@ build/
 dist/
 cache/
 todo.list
+*.pyc
