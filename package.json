@@ -20,7 +20,7 @@
 
   "main": "build/index.html",
   "window": {
-    "toolbar"    : true,
+    "toolbar"    : false,
     "frame"      : true,
     "width"      : 850,
     "height"     : 650,

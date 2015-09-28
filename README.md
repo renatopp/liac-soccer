@@ -2,6 +2,9 @@
 
 Version 1.0.0
 
+![The liac-soccer interface](https://raw.githubusercontent.com/renatopp/liac-soccer/master/docs/source/_static/liac-soccer.png)
+
+
 Liac-soccer is being developed by the Connectionist Artificial Intelligence Laboratory (LIAC), which takes place at Federal University of Rio Grande do Sul (UFRGS), Brazil. This software was designed to be used in didactic activities for neural network and fuzzy systems classes. The goal of Liac-soccer is to provide a soccer sandbox so students can test their algorithms.
 
 Documentation: http://inf.ufrgs.br/~rppereira/docs/liac-soccer/
