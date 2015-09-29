@@ -6,6 +6,8 @@ var connect     = require('gulp-connect');
 var del         = require('del');
 var exec        = require('child_process').exec;
 var merge       = require('merge-stream');
+var builder     = require('nw-builder');
+
 
 
 var vendor_js = [
@@ -38,7 +40,7 @@ var app_data = [
   'src/*.json'
 ];
 
-var build_platforms = ['win32', 'linux32', 'osx32'];
+var build_platforms = ['win32'];//, 'linux32', 'osx32'];
 
 // VENDOR =====================================================================
 gulp.task('_vendor_js', function() {
@@ -131,6 +133,21 @@ gulp.task('_create_cache', ['build'], function() {
 
 gulp.task('_dist', ['_create_cache'], function() {
   exec('nwbuild -o dist/ -p '+build_platforms.join(',')+' -v 0.12.2 cache');
+  // var nw = new builder({
+  //   files     : './cache/**/*',
+  //   version   : '0.12.2',
+  //   platforms : ['win32'],
+  //   cacheDir  : './__cache__',
+  //   buildDir  : 'dist',
+  //   macIcns   : './src/assets/ball.icns',
+  //   winIco    : './src/assets/ball.ico',
+  // });
+
+  // nw.build().then(function () {
+  //   console.log('all done!');
+  // }).catch(function (error) {
+  //   console.error(error);
+  // });
 });
 
 

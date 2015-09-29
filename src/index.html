@@ -2,17 +2,25 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAAB7FBMVEX///+XmZtpamsICAkVFRaOj5KAgoVZXFxaXVwkJiZfY2EpKilWXFcICQgsLywAAAAAAAAAAABITkgmKiUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADBAMSFBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABdbFR+k3IWGxUaHxkSFhJdalaVqYmYppGao5ifpp4kLSMqNCpGVEVZZFSYpZOrrqy7u7zHyMlzc3PMzc7Bw8SwtbJbYFlwfWqjrKDAwsPW19bl5eV6enru7u7n6Ojd3t/IysuapZaLlodjZGTs7Oyvr65TU1P19fXv7+/q6+vi4+NwcXGOmYu0uLQGBgYTEhAZGRZ7enrw8PDx8fHp6enW19eutK/LzczCwsIhIR03NzFJSEFhYFb5+fn4+Pj39/dAPzwbGhjY2NjDw8NMS0RjYliAf3Oko5XOzs9bWlEiIh/f4OLOzs5ycWWBgHO4tqhsa2b8/PvZ2dlYV1ZUVEsiIR5ucHH9/f52dW1ramRVVUwXFxPy9Pj////R0dH+/v79/f1eXl3T1dry9Pn8/f2cnJz8/Pz7+/tvb3DJzNDN0dbq7fby9fvj4+T5+fz29/rz9Phtbm/Hyc4yMzM4NzEuLigrKiUZGBbLqnOQAAAALHRSTlMAg5sECvv7XJux2a/ZRpkaIBTv9xwGTFgKeIMWaNPbch4CCCpeiZeLZC4MBO3pgToAAAH0SURBVBiV7djVb9RREEDhpUCR4lpci7u7OxR3d4q7u1OKu+s/ytuZl5tN04TA3ZzvcXZz57xN8isU6qkRfuMXfuIHvqMM9d3WAAYaaKCBBv5HgY3xDV/xBZ/xCR/xAe/xDk1goIEGGmhg6QW+xRu8xiukZuElXuA5nsFAAw000MBSCWyKp4iEJ4iEmNUhZo9Ri/jfI5TDQAMNNNDAvAMf4gHi6VRMbVH3cQ/x613cgYEGGmiggTkGNsNt3MJN3MB1pLKu4Squ4DIu4SKaw0ADDTTQwHwCW+ACziMWFz9w53AWZ3Aap3ASJ9ASBhpooIEG5hNYgeM4hqM4gsOIWXySq8EhHMQB7Mc+tIKBBhpooIH5BLbGXuzBbuxK2JmwA9uxDVsRL29BGxhooIEGGphPYFtsxiZsxAasRyp1HdZiDVZjFVaiHQw00EADDcwnsD06oBorsBzLEOuWYgkWYxEWYgE6ohMMNNBAAw3MJ7AzumA+5mEu5mA2ZmEmZmA6pmEquqISBhpooIEG5hOYOnrdEM9MwWRMwkRMwHiMw1h0R/LAGWiggQYamGFg6IGe6IUxGI1RGIkR6I0+6It+MNBAAw00sFQCQ38MwEBUYRAGYwiGYhgaEGOggQYaaGCGgSlxmiI/FsdsOP5ijIEGGmiggf868A+ISHoX0E3iQgAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
-
   <title>LIAC-SOCCER (v1.0.0)</title>
-
 </head>
 <body>
   
+  <!--
+  =============================================================================
+  = SPLASH SCREEN
+  =============================================================================
+  -->
   <div class="sc-splash">
     <h1><i class="fa fa-gear fa-spin fa-2x"></i></h1>
   </div>
 
+
+  <!--
+  =============================================================================
+  = DEPENDENCES
+  =============================================================================
+  -->
   <link rel="stylesheet" href="css/vendor.min.css">
   <link rel="stylesheet" href="css/app.min.css">
   <script type="text/javascript" src="js/vendor.min.js"></script>
@@ -26,6 +34,7 @@
   -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
+
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <a href="#" class="navbar-brand"><i class="fa fa-soccer-ball-o"></i></a>
@@ -33,18 +42,20 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav">
+
+          <!-- GAME -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Game</a>
             <ul class="dropdown-menu">
               <li><a href="#" id="btn-newgame"><i class="fa fa-fw fa-file"></i> New Game</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#" id="btn-invert"><i class="fa fa-fw fa-exchange"></i> Invert Players</a></li>
-              <!-- <li><a href="#"><i class="fa fa-fw fa-male"></i> Load Bot</a></li> -->
               <li role="separator" class="divider"></li>
               <li><a href="#" id="btn-exit"><i class="fa fa-fw fa-sign-out"></i> Exit</a></li>
             </ul>
           </li>
 
+          <!-- EXECUTION -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Execution</a>
             <ul class="dropdown-menu">
@@ -55,16 +66,8 @@
               <li><a href="#" id="btn-randomreset"><i class="fa fa-fw fa-random"></i> Random Reset</a></li>
             </ul>
           </li>
-<!-- 
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logs</a>
-            <ul class="dropdown-menu">
-              <li><a href="#"><i class="fa fa-fw fa-floppy-o"></i> Save game</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-bookmark"></i> Save bot 1</a></li>
-              <li><a href="#"><i class="fa fa-fw fa-bookmark-o"></i> Save bot 2</a></li>
-            </ul>
-          </li> -->
 
+          <!-- DEBUG -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Debug</a>
             <ul class="dropdown-menu">
@@ -73,6 +76,7 @@
             </ul>
           </li>
 
+          <!-- HELP -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
             <ul class="dropdown-menu">
@@ -81,6 +85,7 @@
               <li><a href="#" id="btn-about" data-toggle="modal" data-target="#modal-about"><i class="fa fa-fw fa-info"></i> About</a></li>
             </ul>
           </li>
+
         </ul>
 
     </div>
@@ -94,6 +99,7 @@
   -->
   <div class="sc-info">
 
+    <!-- COMMANDS PANEL -->
     <div class="sc-info-commands">
       <div class="btn-group" role="group" aria-label="...">
 
@@ -118,6 +124,7 @@
       </div>
     </div>
 
+    <!-- INFO PANEL -->
     <div class="sc-info-panel clearfix">
       <div class="sc-info-panel-score">
         <span id="score-1">0</span>
@@ -137,9 +144,11 @@
       </div>
     </div>
 
-
+    <!-- SETTING PANEL -->
     <div class="sc-settings-panel clearfix">
       <ul class="sc-settings-panel-row list-unstyled">
+
+        <!-- SIMULATION SPEED -->
         <li class="clearfix">
           <div class="sc-settings-panel-input">
             <input id="simulation-speed"
@@ -154,13 +163,9 @@
             Simulation speed
           </div>
         </li>
+
       </ul>
     </div>
-<!-- 
-    <div class="sc-info-log">
-      <div class="sc-info-log-header">Game debug</div>
-      <textarea readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt alias expedita ducimus neque cum debitis labore corporis sed dicta dolores architecto commodi quam nulla non saepe a distinctio magni, cumque. Odio laboriosam aut minus provident rem quaerat praesentium autem, placeat maiores doloribus ratione, quo id, itaque nihil vel modi hic perspiciatis natus debitis ad architecto officiis. Ipsam, voluptatem, exercitationem natus, provident quasi nihil aliquam commodi blanditiis illum possimus laboriosam cupiditate quam? Minima repellat vel quas quidem suscipit tenetur. Iure maxime ipsam, praesentium itaque quis voluptas veritatis molestiae fugiat minus ducimus repellendus mollitia! Vel consectetur eligendi, quod exercitationem molestias animi saepe.</textarea>
-    </div> -->
 
   </div>
 
@@ -200,11 +205,7 @@
   </div>
 
 
-  <script>
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip({delay:{'show':1000, 'hide':100}})
-  })
-  </script>
+  <!-- RUN APPLICATION -->
   <script>run();</script>
 </body>
 </html>

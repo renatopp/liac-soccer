@@ -4,27 +4,27 @@
   "version": "1.0.0",
   "author": "Renato de Pontes Pereira <renato.ppontes@gmail.com>",
   "devDependencies": {
-    "gulp"            : "*",
-    "gulp-concat"     : "*",
-    "gulp-uglify"     : "*",
-    "gulp-minify-css" : "*",
-    "gulp-connect"    : "*",
-    "merge-stream"    : "*",
-    "del"             : "*",
-    "socket.io"       : "*"
+    "del": "*",
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-connect": "*",
+    "gulp-minify-css": "*",
+    "gulp-uglify": "*",
+    "merge-stream": "*",
+    "nw-builder": "^2.0.2",
+    "socket.io": "*"
   },
-
-  "dependences" : {
-    "socket.io"       : "*"
+  "dependences": {
+    "socket.io": "*"
   },
-
   "main": "build/index.html",
   "window": {
-    "toolbar"    : false,
-    "frame"      : true,
-    "width"      : 850,
-    "height"     : 650,
-    "min_width"  : 850,
-    "min_height" : 650
+    "toolbar": false,
+    "frame": true,
+    "icon": "src/assets/ball.png",
+    "width": 850,
+    "height": 650,
+    "min_width": 850,
+    "min_height": 650
   }
 }

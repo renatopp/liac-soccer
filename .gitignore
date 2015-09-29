@@ -31,6 +31,7 @@ node_modules
 .idea
 
 # Custom
+__cache__
 bower_components/
 build/
 dist/

@@ -13,7 +13,6 @@
     this.state = 'DISCONNECT';
     this._waiting_moves = false;
     this._move_timout = 0;
-
   }
 
   /** Initialize all objects */
@@ -78,6 +77,7 @@
 
     this.update_info();
   }
+
   App.prototype.on_disconnection = function(client) {
     var i = this.players.indexOf(client);
     if (i < 0) {
@@ -90,6 +90,7 @@
 
     this.update_info();
   }
+
   App.prototype.on_rename = function() {
     this.update_info();
   }
@@ -120,6 +121,7 @@
       this._waiting_moves = true;
     }
   }
+  
   App.prototype._get_game_info = function() {
     var p1 = this.players[0];
     var p2 = this.players[1];
