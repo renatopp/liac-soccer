@@ -71,7 +71,7 @@
     }
 
     this.players[i] = client;
-    if (this.players[0] !== null && this.players[1] !== null) {
+    if (this.players[0] !== null || this.players[1] !== null) {
       this.do_stop();
     }
 
@@ -86,7 +86,11 @@
     }
 
     this.players[i] = null;
-    this.do_disconnect();
+    if (this.players[0] || this.players[1]) {
+      this.do_stop();
+    } else {
+      this.do_disconnect();
+    }
 
     this.update_info();
   }
@@ -105,8 +109,9 @@
       if (moves) {
         var move1 = moves[this.players[0]];
         var move2 = moves[this.players[1]];
-        this.game.robot1.act(move1.force, move1.steer);
-        this.game.robot2.act(move2.force, move2.steer);
+
+        if (move1) { this.game.robot1.act(move1.force, move1.steer); }
+        if (move2) { this.game.robot2.act(move2.force, move2.steer); }
         this.game.update(tick);
 
         this._move_timout = 0;
@@ -177,6 +182,9 @@
     this._move_timout = 0;
     this._waiting_moves = false;
 
+    if (!this.players[0]) { this.game.robot1.disable(); }
+    if (!this.players[1]) { this.game.robot2.disable(); }
+
     gui.btn_play.attr('disabled', 'disabled');
     gui.btn_pause.attr('disabled', false);
     gui.btn_stop.attr('disabled', false);
@@ -201,6 +209,8 @@
     this.update_info();
     this.state = 'STOP';
 
+    this.game.robot1.enable();
+    this.game.robot2.enable();
     gui.btn_play.attr('disabled', false);
     gui.btn_pause.attr('disabled', 'disabled');
     gui.btn_stop.attr('disabled', 'disabled');
@@ -219,6 +229,8 @@
     logger.debug('Changing app state to DISCONNECT.');
     this.state = 'DISCONNECT';
 
+    this.game.robot1.enable();
+    this.game.robot2.enable();
     gui.btn_play.attr('disabled', 'disabled');
     gui.btn_pause.attr('disabled', 'disabled');
     gui.btn_stop.attr('disabled', 'disabled');

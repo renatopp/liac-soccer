@@ -51,17 +51,17 @@
     var back_wheel_pos = [0, -height/2];
 
     // shape
-    var shape = new p2.Box({width:width, height:height});
+    this.physical_shape = new p2.Box({width:width, height:height});
 
     // material
-    shape.material = new p2.Material();
-    this.physical_material = shape.material;
+    this.physical_shape.material = new p2.Material();
+    this.physical_material = this.physical_shape.material;
 
     // body (chassis)
     this.physical_object = new p2.Body({mass:mass, position:position});
     this.physical_object.label = 'robot';
     this.physical_object.damping = damping;
-    this.physical_object.addShape(shape);
+    this.physical_object.addShape(this.physical_shape);
 
     // vehicle
     this.vehicle = new p2.TopDownVehicle(this.physical_object);
@@ -172,7 +172,17 @@
     this.physical_object.velocity = [0, 0];
     this.front_wheel.engineForce = 0;
     this.front_wheel.steerValue = 0;
-  }  
+  }
+
+  Robot.prototype.enable = function() {
+    this.display_object.visible = true;
+    this.physical_shape.sensor = false;
+  }
+
+  Robot.prototype.disable = function() {
+    this.physical_shape.sensor = true;
+    this.display_object.visible = false;
+  }
   
   Robot.prototype.update = function() {
     // variables

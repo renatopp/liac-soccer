@@ -99,38 +99,49 @@
     var c1 = this.clients[0];
     var c2 = this.clients[1];
 
-    c1.move = null;
-    c1.send({
-      type     : 'state',
-      turn     : this.waiting_turn,
-      ball     : info.ball,
-      player   : info[c1.id],
-      opponent : info[c2.id]
-    });
+    if (c1) {
+      c1.move = null;
+      c1.send({
+        type     : 'state',
+        turn     : this.waiting_turn,
+        ball     : info.ball,
+        player   : c1?info[c1.id]:{},
+        opponent : c2?info[c2.id]:{}
+      });
+    }
 
-    c2.move = null;
-    c2.send({
-      type     : 'state',
-      turn     : this.waiting_turn,
-      ball     : info.ball,
-      player   : info[c2.id],
-      opponent : info[c1.id]
-    });
+    if (c2) {
+      c2.move = null;
+      c2.send({
+        type     : 'state',
+        turn     : this.waiting_turn,
+        ball     : info.ball,
+        player   : c2?info[c2.id]:{},
+        opponent : c1?info[c1.id]:{}
+      });
+    }
   }
 
   Network.prototype.get_moves = function() {
     var c1 = this.clients[0];
     var c2 = this.clients[1];
 
-    if (c1.move && c2.move) {
-      var moves = {}
-      moves[c1.id] = c1.move;
-      moves[c2.id] = c2.move;
+    if ((!c1 || c1.move) && (!c2 || c2.move)) {
 
       this.waiting_turn = null;
       this.is_waiting_moves = false;
-      c1.move = null;
-      c2.move = null;
+
+      var moves = {}
+      if (c1) {
+        moves[c1.id] = c1.move;
+        c1.move = null;
+      }
+
+      if (c2) {
+        moves[c2.id] = c2.move;
+        c2.move = null;
+      }
+      
       return moves;
     }
 
