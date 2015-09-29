@@ -33,8 +33,9 @@
     this.display_object.graphics
                           .setStrokeStyle(line)
                           .beginStroke(color)
+                          .drawCircle(0, 0, r/10)
                           .drawRect(-r/2, -r/2, r, r)
-                          .moveTo(0, 0)
+                          .moveTo(0, -r/10)
                           .lineTo(0, -r/2);
     
     // ray casting

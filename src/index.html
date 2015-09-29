@@ -18,6 +18,12 @@
   <script type="text/javascript" src="js/vendor.min.js"></script>
   <script type="text/javascript" src="js/app.min.js"></script>
 
+
+  <!--
+  =============================================================================
+  = NAV BAR
+  =============================================================================
+  -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,9 +50,9 @@
             <ul class="dropdown-menu">
               <li><a href="#" id="btn-play"><i class="fa fa-fw fa-play"></i> Play</a></li>
               <li><a href="#" id="btn-pause"><i class="fa fa-fw fa-pause"></i> Pause</a></li>
-              <!-- <li><a href="#" id="btn-reset"><i class="fa fa-fw fa-play-circle-o"></i> Step</a></li> -->
               <li><a href="#" id="btn-stop"><i class="fa fa-fw fa-stop"></i> Stop</a></li>
               <li><a href="#" id="btn-reset"><i class="fa fa-fw fa-refresh"></i> Reset Ball</a></li>
+              <li><a href="#" id="btn-randomreset"><i class="fa fa-fw fa-random"></i> Random Reset</a></li>
             </ul>
           </li>
 <!-- 
@@ -80,19 +86,26 @@
     </div>
   </nav>
 
+
+  <!--
+  =============================================================================
+  = SIDE BAR
+  =============================================================================
+  -->
   <div class="sc-info">
-      
+
     <div class="sc-info-commands">
       <div class="btn-group" role="group" aria-label="...">
+
+        <a id="btn-randomreset" href="#" class="btn btn-default" title="Random Reset">
+          <i class="fa fa-fw fa-random"></i>
+        </a>
         <a id="btn-reset" href="#" class="btn btn-default" title="Reset Ball">
           <i class="fa fa-refresh"></i>
         </a>
         <a id="btn-play" href="#" class="btn btn-default" title="Play">
           <i class="fa fa-play"></i>
         </a>
-        <!-- <a id="btn-step" class="btn btn-default" title="Step">
-          <i class="fa fa-play-circle-o"></i>
-        </a> -->
         <a id="btn-pause" href="#" class="btn btn-default" title="Pause">
           <i class="fa fa-pause"></i>
         </a>
@@ -105,7 +118,7 @@
       </div>
     </div>
 
-    <div class="sc-info-panel">
+    <div class="sc-info-panel clearfix">
       <div class="sc-info-panel-score">
         <span id="score-1">0</span>
       </div>
@@ -114,7 +127,7 @@
         <em><small><span id="status-1">Disconnected</span></small></em>
       </div>
     </div>
-    <div class="sc-info-panel">
+    <div class="sc-info-panel sc-info-panel-last clearfix">
       <div class="sc-info-panel-score">
         <span id="score-2">0</span>
       </div>
@@ -122,6 +135,26 @@
         <h4><span id="name-2">My lovely bot</span></h4>
         <em><small><span id="status-2">Connected</span></small></em>
       </div>
+    </div>
+
+
+    <div class="sc-settings-panel clearfix">
+      <ul class="sc-settings-panel-row list-unstyled">
+        <li class="clearfix">
+          <div class="sc-settings-panel-input">
+            <input id="simulation-speed"
+                   class="sc-simulation-panel-input"
+                   type="number"
+                   min="0.5"
+                   max="3.00"
+                   step="0.5"
+                   value="1">
+          </div>
+          <div class="sc-settings-panel-label">
+            Simulation speed
+          </div>
+        </li>
+      </ul>
     </div>
 <!-- 
     <div class="sc-info-log">
@@ -131,10 +164,22 @@
 
   </div>
 
+
+  <!--
+  =============================================================================
+  = CANVAS
+  =============================================================================
+  -->
   <div class="sc-canvas">
     <canvas id="game" width="2000" height="1500"></canvas>
   </div>
 
+
+  <!--
+  =============================================================================
+  = MODALS
+  =============================================================================
+  -->
   <div id="modal-about" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">

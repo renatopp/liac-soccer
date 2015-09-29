@@ -6,6 +6,7 @@ html, body {
   overflow: hidden;
 }
 
+
 /* BOOSTRAP OVERRIDEN */
 .navbar-nav > li > a, .navbar-brand {
   padding-top: 4px !important; 
@@ -86,12 +87,44 @@ a[disabled] {
   margin-bottom : 30px;
 }
 
+.sc-settings-panel {
+  margin: 10px;
+  /*padding: 10px 0px;*/
+  margin-bottom : 30px;
+  background    : #FFF;
+  border        : 1px solid #E7E7E7;
+}
+.sc-settings-panel ul { margin: 0px; padding: 0px; }
+.sc-settings-panel-input {
+  text-align: center;
+  width: 75px;
+  border: none;
+  border-right: 1px solid #E7E7E7;
+  /*padding: 15px 0px;*/
+  float: left;
+  /*background-color: blue;*/
+}
+.sc-settings-panel-input input {
+  padding: 5px 0px;
+  font-size: 1.5em;
+  width: 100%;
+  border: 0px;
+  outline: none;
+  text-align: right;
+}
+.sc-settings-panel-label {
+  padding-left : 85px;
+  padding-top  : 10px;
+}
+
 .sc-info-panel {
   background    : #FFF;
   border        : 1px solid #E7E7E7;
   border-radius : 5px;
   margin        : 10px;
-  height        : 75px;
+}
+.sc-info-panel-last {
+  margin-bottom: 30px;
 }
 .sc-info-panel-score {
   float        : left;

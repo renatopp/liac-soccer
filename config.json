@@ -21,10 +21,11 @@
 
     "physics": {
       "scale"                      : 100,
+      "simulation_speed"           : 1,
       "gs_iterations"              : 128,
       "substeps"                   : 128,
       "ball_mass"                  : 1,
-      "ball_damping"               : 0.5,
+      "ball_damping"               : 0.8,
       "ball_friction"              : 0,
       "ball_restitution"           : 1,
       "robot_force"                : 50,

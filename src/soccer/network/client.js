@@ -42,7 +42,7 @@
     } 
     catch (e) {
       var msg = 'Invalid JSON string.';
-      this.send({type:'badmove', motive:0, message:msg});
+      this.send({type:'badmove', motive:1, message:msg});
     }
 
     if (data.name) { 
@@ -52,10 +52,6 @@
     }
     else if (this.network.waiting_turn != data.turn) {
       var msg = 'Invalid turn.';
-      this.send({type:'badmove', motive:1, message:msg});
-    }
-    else if (!data.steer || !data.force) {
-      var msg = 'Invalid move format (missing steer or force).';
       this.send({type:'badmove', motive:2, message:msg});
     }
     else if (!soccer.utils.is_number(data.steer)) {

@@ -45,9 +45,23 @@
   
   Ball.prototype.reset = function() {
     var scale = config.physics.scale;
+
     this.display_object.x = this._i_x;
     this.display_object.y = this._i_y;
     this.physical_object.position = [this._i_x/scale, this._i_y/scale];
+    this.physical_object.angularVelocity = 0;
+    this.physical_object.velocity = [0, 0];
+  }  
+  
+  Ball.prototype.random_reset = function() {
+    var scale = config.physics.scale;
+
+    var _x = Math.random()*1800-900;
+    var _y = Math.random()*1400-700;
+
+    this.display_object.x = _x;
+    this.display_object.y = _y;
+    this.physical_object.position = [_x/scale, _y/scale];
     this.physical_object.angularVelocity = 0;
     this.physical_object.velocity = [0, 0];
   }  

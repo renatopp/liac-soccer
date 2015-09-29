@@ -104,7 +104,6 @@
       object.vehicle.addToWorld(this.world);
     }
 
-    // TODO: REMOVE THIS
     if (object.display_ray) {
       this.stage.addChild(object.display_ray);
     }
@@ -166,6 +165,13 @@
     this._render();
   }
 
+  Game.prototype.random_reset = function() {
+    this.ball.random_reset();
+    this.robot1.reset();
+    this.robot2.reset();
+    this._render();
+  }
+
   Game.prototype.get_ball_info = function() {
     return {
       x: this.ball.display_object.x,
@@ -205,6 +211,7 @@
 
   /** Update the display and game simulation */
   Game.prototype.update = function(tick) {
+    var simspeed = config.physics.simulation_speed;
 
     // update all game objects
     for (var i=0; i<this.objects.length; i++) {
@@ -212,12 +219,12 @@
     }
 
     // update physics
-    this.world.step(tick, 0, config.physics.substeps);
+    this.world.step(tick*simspeed, 0, config.physics.substeps);
 
     // update display
     this.stage.update();
 
-    // TODO: remove this
+    // for development tests
     if (!desktop) {
       var steer = -(1000-this.stage.mouseX)/1000;
       var force = (750-this.stage.mouseY)/750;

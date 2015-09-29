@@ -179,6 +179,7 @@
     gui.btn_pause.attr('disabled', false);
     gui.btn_stop.attr('disabled', false);
     gui.btn_reset.attr('disabled', false);
+    gui.btn_randomreset.attr('disabled', false);
     gui.btn_invert.attr('disabled', 'disabled');
   }
   App.prototype.do_pause = function() {
@@ -189,6 +190,7 @@
     gui.btn_pause.attr('disabled', 'disabled');
     gui.btn_stop.attr('disabled', false);
     gui.btn_reset.attr('disabled', false);
+    gui.btn_randomreset.attr('disabled', false);
     gui.btn_invert.attr('disabled', 'disabled');
   }
   App.prototype.do_stop = function() {
@@ -201,10 +203,15 @@
     gui.btn_pause.attr('disabled', 'disabled');
     gui.btn_stop.attr('disabled', 'disabled');
     gui.btn_reset.attr('disabled', 'disabled');
+    gui.btn_randomreset.attr('disabled', 'disabled');
     gui.btn_invert.attr('disabled', false);
   }
   App.prototype.do_reset = function() {
     this.game.reset();
+  }
+  App.prototype.do_randomreset = function() {
+    this.game.reset();
+    this.game.random_reset();
   }
   App.prototype.do_disconnect = function() {
     logger.debug('Changing app state to DISCONNECT.');
@@ -214,6 +221,7 @@
     gui.btn_pause.attr('disabled', 'disabled');
     gui.btn_stop.attr('disabled', 'disabled');
     gui.btn_reset.attr('disabled', 'disabled');
+    gui.btn_randomreset.attr('disabled', 'disabled');
     gui.btn_invert.attr('disabled', false);
   }
   App.prototype.do_invert = function() {

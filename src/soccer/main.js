@@ -48,11 +48,13 @@ function _initialize_gui() {
   gui.name2              = $('*[id="name-2"]');
   gui.status1            = $('*[id="status-1"]');
   gui.status2            = $('*[id="status-2"]');
+  gui.simulation_speed   = $('*[id="simulation-speed"]');
   gui.btn_newgame        = $('*[id="btn-newgame"]');
   gui.btn_play           = $('*[id="btn-play"]');
   gui.btn_pause          = $('*[id="btn-pause"]');
   gui.btn_stop           = $('*[id="btn-stop"]');
   gui.btn_reset          = $('*[id="btn-reset"]');
+  gui.btn_randomreset    = $('*[id="btn-randomreset"]');
   gui.btn_invert         = $('*[id="btn-invert"]');
   gui.btn_exit           = $('*[id="btn-exit"]');
   gui.btn_togglesensors1 = $('*[id="btn-toggle-sensors1"]');
@@ -86,6 +88,11 @@ function _initialize_gui() {
       app.do_reset();
     }
   });
+  gui.btn_randomreset.click(function() {
+    if ($(this).attr('disabled') !== 'disabled') {
+      app.do_randomreset();
+    }
+  });
   gui.btn_invert.click(function() {
     if ($(this).attr('disabled') !== 'disabled') {
       app.do_invert();
@@ -100,6 +107,13 @@ function _initialize_gui() {
   gui.btn_exit.click(function() {
     desktop.gui.App.quit();
   });
+  gui.btn_documentation.click(function() {
+    desktop.gui.Shell.openExternal('http://inf.ufrgs.br/~rppereira/docs/liac-soccer/');
+  });
+  gui.simulation_speed.change(function(e) {
+    config.physics.simulation_speed = $(e.target).val();
+  });
+
 
   // remove focus from buttons so they do not change colors (bue to bootstrap)
   gui.btn_newgame.focus(function() {
@@ -122,9 +136,16 @@ function _initialize_gui() {
     var self = $(this);
     setTimeout(function() { self.blur() }, 100);
   });
+  gui.btn_randomreset.focus(function() {
+    var self = $(this);
+    setTimeout(function() { self.blur() }, 100);
+  });
   gui.btn_invert.focus(function() {
     var self = $(this);
     setTimeout(function() { self.blur() }, 100);
+  });
+  gui.simulation_speed.keypress(function (evt) {
+    evt.preventDefault();
   });
 
   // button states
@@ -132,6 +153,7 @@ function _initialize_gui() {
   gui.btn_pause.attr('disabled', 'disabled');
   gui.btn_stop.attr('disabled', 'disabled');
   gui.btn_reset.attr('disabled', 'disabled');
+  gui.btn_randomreset.attr('disabled', 'disabled');
 }
 
 /** Set up sub systems */
@@ -155,8 +177,6 @@ function _initialize_canvas_resize() {
   function resize() {
     var width = window.innerWidth-510;
     var height = window.innerHeight-38;
-    // var width = container.width();
-    // var height = container.height();
 
     if (width > height) {
       canvas.style.width = '';
@@ -198,9 +218,6 @@ function _hide_splash() {
 
 function _get_stub_config() {
   return {
-    "game": {
-    },
-
     "display": {
       "fps"            : 600,
       "robot1_color"   : "#51AEE7",
@@ -220,10 +237,11 @@ function _get_stub_config() {
 
     "physics": {
       "scale"                      : 100,
+      "simulation_speed"           : 1,
       "gs_iterations"              : 128,
       "substeps"                   : 128,
       "ball_mass"                  : 1,
-      "ball_damping"               : 0.5,
+      "ball_damping"               : 0.8,
       "ball_friction"              : 0,
       "ball_restitution"           : 1,
       "robot_force"                : 50,
